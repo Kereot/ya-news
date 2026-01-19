@@ -50,11 +50,16 @@ def test_news_detail_url(news_id):
 
 
 @pytest.fixture
-def comment(news, author):
+def comment_text():
+    return 'comment_text'
+
+
+@pytest.fixture
+def comment(news, author, comment_text):
     comment = Comment.objects.create(
         news=news,
         author=author,
-        text='Текст комментария'
+        text=comment_text
     )
     return comment
 
@@ -90,3 +95,13 @@ def comment_list(news, author):
         )
         comment.created = now + timedelta(days=i)
         comment.save()
+
+
+@pytest.fixture
+def comment_form_data(comment_text):
+    return {'text': comment_text}
+
+
+@pytest.fixture
+def new_comment_text():
+    return 'new_comment_text'
